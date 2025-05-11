@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="productApp">
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="ProductController">
+
+  <h2>Product Catalog</h2>
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>Name (Uppercase)</th>
+      <th>Info</th>
+      <th>Price (Currency)</th>
+    </tr>
+    <tr ng-repeat="p in products | orderBy:'price'">
+      <td>{{p.id}}</td>
+      <td>{{p.name | uppercase}}</td>
+      <td>{{p.info}}</td>
+      <td>{{p.price | currency}}</td>
+    </tr>
+  </table>
+
+  <script>
+    angular.module('productApp', []).controller('ProductController', function($scope) {
+      $scope.products = [
+        { id: 1, name: 'laptop', info: 'Good for work', price: 45000 },
+        { id: 2, name: 'mouse', info: 'Wireless', price: 700 },
+        { id: 3, name: 'keyboard', info: 'Mechanical', price: 2500 }
+      ];
+    });
+  </script>
+
+</body>
+</html>

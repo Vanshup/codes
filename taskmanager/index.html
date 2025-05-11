@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+  </head>
+  <body ng-app="taskApp" ng-controller="taskController">
+    <div class="container">
+      <h1>Task Manager</h1>
+
+      <input
+        type="text"
+        ng-model="taskTitle"
+        placeholder="Enter task"
+      />
+      <button ng-click="addTask()">Add Task</button>
+
+      <ul>
+        <li ng-repeat="task in tasks">
+          <span
+            ng-click="toggleCompletion(task)"
+            ng-style="{'text-decoration': task.completed ? 'line-through' : 'none'}"
+          >
+            {{ task.title }}
+          </span>
+          <button ng-click="deleteTask(task)">Delete</button>
+        </li>
+      </ul>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

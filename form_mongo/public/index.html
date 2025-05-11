@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="registrationApp">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS Registration</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-controller="RegistrationController">
+
+  <h2>Registration Form</h2>
+  <form name="regForm" ng-submit="register()" novalidate>
+    <label>Name:</label>
+    <input type="text" name="name" ng-model="user.name" ng-required="true" />
+    <span ng-show="regForm.name.$touched && regForm.name.$invalid">Name is required</span><br><br>
+
+    <label>Email:</label>
+    <input type="email" name="email" ng-model="user.email" ng-required="true" />
+    <span ng-show="regForm.email.$touched && regForm.email.$invalid">Valid email required</span><br><br>
+
+    <label>Password:</label>
+    <input type="password" name="password" ng-model="user.password" ng-required="true"
+           ng-pattern="/^\d{6}$/" />
+    <span ng-show="regForm.password.$touched && regForm.password.$error.required">Password is required</span>
+    <span ng-show="regForm.password.$error.pattern">Password must be exactly 6 digits</span><br><br>
+
+    <button type="submit" ng-disabled="regForm.$invalid">Register</button>
+    <p>{{ message }}</p>
+  </form>
+
+  <script>
+    const app = angular.module('registrationApp', []);
+    app.controller('RegistrationController', function ($scope, $http) {
+      $scope.user = {};
+      $scope.message = '';
+
+      $scope.register = function () {
+        $http.post('/register', $scope.user)
+          .then(function (response) {
+            $scope.message = '✅ Registration successful!';
+            $scope.user = {};
+            $scope.regForm.$setPristine();
+            $scope.regForm.$setUntouched();
+          }, function (error) {
+            $scope.message = '❌ Registration failed!';
+          });
+      };
+    });
+  </script>
+</body>
+</html>

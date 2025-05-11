@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Product Search</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Search Products</h1>
+    <input type="text", id="search" placeholder="Type product name...">
+    <ul id="results"></ul>
+    <!--runs the function after the page is fully loaded-->
+    <script>
+        $(document).ready(function(){
+            $("#search").on("input", function(){
+                var query = $(this).val(); //gets the current value typed by the user
+                $.ajax({
+                    url: "/search",
+                    data: {q: query},
+                    success: function(data){
+                        $('#results').empty();
+                        data.forEach(function(product){
+                            $('#results').append("<li>" + product.name + "</li>");
+                        })
+                    }
+                })
+
+            })
+        })
+    </script>
+</body>
+</html>

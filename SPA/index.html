@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>Simple AngularJS SPA</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+
+  <script>
+    var app = angular.module("myApp", ["ngRoute"]);
+
+    app.config(function($routeProvider) {
+      $routeProvider
+        .when("/", {
+          template: "<h2>Home</h2><p>Welcome to the Home page!</p>"
+        })
+        .when("/about", {
+          template: "<h2>About</h2><p>This is the About page.</p>"
+        })
+        .when("/contact", {
+          template: "<h2>Contact</h2><p>Contact us at contact@example.com</p>"
+        })
+        .otherwise({
+          redirectTo: "/"
+        });
+    });
+  </script>
+
+  <style>
+    nav a {
+      margin-right: 15px;
+      text-decoration: none;
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#!/">Home</a>
+    <a href="#!/about">About</a>
+    <a href="#!/contact">Contact</a>
+  </nav>
+
+  <hr>
+
+  <div ng-view></div>
+
+</body>
+</html>
